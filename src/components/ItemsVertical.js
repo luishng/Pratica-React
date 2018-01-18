@@ -2,6 +2,53 @@ import React, { Component } from 'react';
 import { Text, Image, View, StyleSheet } from 'react-native';
 
 export default class ItemsVertical extends Component {
+    numberToFloat(number){
+
+        return number.toFixed(1);
+    }
+
+    formatColorRating(rating){
+        var ratingColor;
+
+        if(rating >= 9)
+            ratingColor = '#3CCD36'
+        else 
+            if (rating >= 8 && rating < 9)
+                ratingColor = '#93CD36'
+            else
+                if (rating >= 7 && rating < 8)
+                    ratingColor = '#CBCD36'
+                else
+                    ratingColor = '#CD6136'
+
+        return ratingColor;
+    }
+
+    formatDistance(distance){
+        var strDistance = '';
+
+        if(distance >= 1000){
+            distance = distance / 1000;
+            distance.toFixed(1);
+            strDistance = distance + ' km';
+        } 
+        else
+            strDistance = distance + ' m';
+
+        return strDistance;
+    }
+    
+    formatPrice(price){
+        var strPrice = '';
+        var i = 0;
+
+        for(i = 0; i < price-1; i++){
+            strPrice += '$'
+        }
+
+        return strPrice;
+    }
+
     render() {
         return (
             <View style={styles.principalView}>
@@ -18,18 +65,23 @@ export default class ItemsVertical extends Component {
                         <View style={styles.locationMainView}>
                             <View style={styles.locationView}>
                                 <Text>{this.props.item.type}</Text>
-                                <Text>{this.props.item.distance}</Text>
+                                <Text>{this.formatDistance(this.props.item.distance)}</Text>
                             </View>
 
                             <View style={styles.locationView}>
-                                <Text>{this.props.item.price}</Text>
+                                <View style={styles.priceView}>
+                                    <Text>{this.formatPrice(this.props.item.price)}</Text>
+                                    <Text style={{color: '#A0A0A0'}}>$</Text>
+                                </View>
                                 <Text>{this.props.item.neigborhood}</Text>
                             </View>
                         </View>
                     </View>
 
-                    <View >
-                        <Text style={styles.txtRating}>{this.props.item.rating}</Text>
+                    <View>
+                        <Text style={[styles.txtRating, 
+                            {backgroundColor: this.formatColorRating(this.props.item.rating)}]}>
+                            {this.numberToFloat(this.props.item.rating)}</Text>
                     </View>
                 </View>
 
@@ -45,6 +97,9 @@ const styles = StyleSheet.create({
     itemMainView: {
         flexDirection: 'row',
         flex: 4
+    },
+    priceView: {
+        flexDirection: 'row'
     },
     photoView: {
         flex: 5,
@@ -76,19 +131,21 @@ const styles = StyleSheet.create({
     },
     txtTitle: {
         fontSize: 18,
-        color: '#D06600'
+        color: '#D06600',
+        fontFamily: 'Roboto'
     },
     txtRating: {
         fontSize: 18,
         color: '#fff',
-        backgroundColor: '#3CCD36',
         borderRadius: 10,
         marginRight: 10,
         marginTop: 10,
-        padding: 5
+        padding: 5,
+        fontFamily: 'Roboto'
     },
     txtComment: {
         justifyContent: 'center',
-        flex: 1
+        flex: 1,
+        fontFamily: 'Roboto'
     }
 })

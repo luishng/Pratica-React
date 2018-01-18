@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, StatusBar } from 'react-native';
+import { View, Text, ScrollView, StatusBar, StyleSheet } from 'react-native';
 import axios from 'axios';
 
 import ItensVertical from './ItemsVertical';
@@ -26,15 +26,15 @@ export default class ListItems extends Component {
 
     render() {
         return (
-            <View>
-                <StatusBar backgroundColor= '#D06600'/>
+            <View style={{flex: 1}}>
+                <StatusBar backgroundColor= '#D06600' style={styles.status}/>
                 <NavegationBar/>
-                <ScrollView horizontal style={{marginLeft: 30}}>
-                    <View style={{flex: 1, flexDirection: 'row'}}>
+                <ScrollView horizontal style={styles.scrollHorizontal}>
+                    <View style={styles.viewHorizontal}>
                         { this.state.itemsHorizontal.map(item => (<ItensHorizontal key={item.name} item={item}/>)) }
                     </View>
                 </ScrollView>
-                <ScrollView>
+                <ScrollView style={styles.scrollVertical}>
                     <View>
                         { this.state.itemsVertical.map(item => (<ItensVertical key={item.name} item={item}/>)) }
                     </View>
@@ -43,3 +43,16 @@ export default class ListItems extends Component {
         );
     }
 }
+
+const styles = StyleSheet.create({
+    viewHorizontal: {
+        flexDirection: 'row',
+        marginBottom: 10
+    },
+    scrollHorizontal: {
+        marginLeft: 30
+    },
+    scrollVertical: {
+        marginTop: 10
+    }
+})

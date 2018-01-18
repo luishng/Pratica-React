@@ -5,7 +5,7 @@ export default class ItemsHorizontal extends Component {
     render() {
         return (
             <View style={styles.item}>
-                <Image style={styles.photo} source={{uri: this.props.item.image}}/>
+                <Image source={{uri: this.props.item.image}} style={styles.photo} />
                 <Text style={styles.txtPhoto}>{this.props.item.name}</Text>
             </View>
         );
@@ -14,18 +14,20 @@ export default class ItemsHorizontal extends Component {
 
 const styles = StyleSheet.create({
     item: {
-        flex: 1
+        flex: 1,
+        alignItems: 'center'
     },
     photo: {
         width: 100,
         height: 100,
         marginTop: 10,
         marginBottom: 30,
-        marginRight: 5,
-        shadowOffset: { width: 2, height: 2}
+        marginRight: 5
     },
     txtPhoto: {
         position: 'absolute',
-        color: '#fff'
+        color: '#fff',
+        bottom: 1,
+        fontFamily: 'Roboto'
     }
 })
